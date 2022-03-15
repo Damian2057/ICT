@@ -16,12 +16,15 @@ std::vector<int> DecodeWord::repairWord(std::vector<int> wordInByteForm) {
     std::vector<int> rows;
 
     try {
+        //if rows.size() != that is, we found errors in the transmission
         rows = matrix ->findIdenticalRows(matrixProduct);
     } catch (std::logic_error& e) {
+        //0 or more than 2 errors
         return wordInByteForm;
     }
-
     for (int iterator : rows) {
+        //repair wordInByteForm(rows.size() == 1 one error, == 2 two errors)
+        //repair of found indexes corresponding to the opposite signs, ie as they should be
         if(wordInByteForm[iterator] == 0) {
             wordInByteForm[iterator] = 1;
         } else {
