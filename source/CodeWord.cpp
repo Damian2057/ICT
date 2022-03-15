@@ -69,7 +69,7 @@ std::string CodeWord::vectorToString(const std::vector<int> &word) {
     for(int bit: word) {
         text << bit;
     }
-    return text.str()
+    return text.str();
 }
 
 std::vector<int> CodeWord::stringToVector(const std::string &text) {

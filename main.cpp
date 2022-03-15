@@ -4,9 +4,9 @@
 #include <bitset>
 #include <sstream>
 #include <string>
+#include "include/CodeWord.h"
 
 int main() {
-    printf("Some text");
     system("pause");
     return 0;
 }
