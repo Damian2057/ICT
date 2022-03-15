@@ -6,5 +6,7 @@
 #include <string>
 
 int main() {
+    printf("Some text");
+    system("pause");
     return 0;
 }
