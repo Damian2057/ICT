@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <memory>
 #include <sstream>
+#include <iostream>
 #include "../include/CodeWord.h"
 #include "../include/Matrix.h"
 
@@ -14,7 +15,6 @@ std::string CodeWord::code(char sign, int countOfControlBites) {
     auto wordInByteForm = signToBitsVector(sign);
     //add zeros to complete the type
     wordInByteForm = addZeros(wordInByteForm,countOfControlBites);
-
     //matrix call
     auto matrix = std::make_shared<Matrix>(8, countOfControlBites);
     //create controlBits
@@ -57,8 +57,7 @@ std::vector<int> CodeWord::addZeros(std::vector<int> word, int count) {
 }
 
 std::vector<int> CodeWord::createControlBits(std::vector<int> word, std::vector<int> bits, int count) {
-    for (int i = 0; i < count; ++i) {
-        //max word lenght from 0-7, 8 and nexts are controll
+    for (int i = 0; i < count; i++) {
         word.at(i+8) = bits.at(i);
     }
     return word;
@@ -77,7 +76,7 @@ std::vector<int> CodeWord::stringToVector(const std::string &text) {
 
     for (char znak : text) {
         temp.push_back(znak - 48);
-    };
+    }
 
     return temp;
 }
