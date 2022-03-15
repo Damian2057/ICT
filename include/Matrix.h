@@ -36,7 +36,7 @@ private:
 
 
 public:
-    Matrix(int dlugoscSlowa, int iloscBitowKontrolnych);
+    Matrix(int wordlength, int countOfControlBits);
     virtual ~Matrix();
 
     void toString();

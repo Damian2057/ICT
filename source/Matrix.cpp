@@ -7,7 +7,7 @@
 #include "../include/Matrix.h"
 
 
-Matrix::Matrix(int dlugoscSlowa, int iloscBitowKontrolnych) {
+Matrix::Matrix(int wordlength, int countOfControlBits) {
 
 }
 

@@ -9,7 +9,7 @@
 #include "../include/Matrix.h"
 
 std::vector<int> DecodeWord::repairWord(std::vector<int> wordInByteForm) {
-    //8 bytes are control bytes
+    //length of the coded word 18
     auto matrix = std::make_shared<Matrix>(8,wordInByteForm.size()-8);
     auto matrixProduct = matrix->multiplyByVector(wordInByteForm);
 
@@ -33,7 +33,7 @@ std::vector<int> DecodeWord::repairWord(std::vector<int> wordInByteForm) {
 
 
 char DecodeWord::decodeWord(std::vector<int> wordinByteForm) {
-    //make sure the word is correct
+    //review if our word is correct, possible error correction on two bits
     wordinByteForm = repairWord(wordinByteForm);
     int number = 0;
     int exponent = 0;
@@ -42,6 +42,7 @@ char DecodeWord::decodeWord(std::vector<int> wordinByteForm) {
         number += int(pow(2,exponent)) * wordinByteForm.at(i);
         exponent++;
     }
+    //parse int ASCII to substitute in char
     return char(number);
 }
 
