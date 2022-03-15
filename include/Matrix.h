@@ -12,7 +12,7 @@ class Matrix {
 
 private:
     int rowsCount = 10;
-    int ColCount = 10+8;
+    int colCount = 10+8;
     int wordLength = 8;
     int matrix[10][10+8] = {
             {1,0,1,1,1,0,1,1, 1,0,0,0,0,0,0,0,0, 0},
