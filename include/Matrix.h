@@ -14,6 +14,7 @@ private:
     int rowsCount = 10;
     int colCount = 10+8;
     int wordLength = 8;
+    //matrix H[n][n+m]
     int matrix[10][10+8] = {
             {1,0,1,1,1,0,1,1, 1,0,0,0,0,0,0,0,0, 0},
             {0,0,0,0,1,1,1,1, 0,1,0,0,0,0,0,0,0, 0},

@@ -8,11 +8,9 @@
 
 
 Matrix::Matrix(int wordlength, int countOfControlBits) {
-
 }
 
 Matrix::~Matrix() {
-
 }
 
 void Matrix::toString() {
@@ -52,21 +50,23 @@ std::vector<int> Matrix::multiplyByVector(std::vector<int> vector) {
 
     for (int i = 0; i < rowsCount; i++) {
         for (int j = 0; j < colCount; j++) {
-            //we multiply successive words in the columns by the vector
+            //we multiply our every value in row with every value in vector
+            //h11*a1+h12*a2+... = ->
             result.at(i) += this->matrix[i][j] * vector[j];
         }
-        //then (the sum of the entire column) %2 and save the rest
+        //-> result of column %2 causes 1 or 0
         result.at(i) %= 2;
     }
     return result;
 }
 
 std::vector<int> Matrix::findIdenticalRows(std::vector<int> vectorToCheck) {
+    //vector H E
     std::vector<int> rows;
     for (int i = 0; i < colCount; i++) {
         //Finding ONE fault in bits
         if(isColAsVector(i,vectorToCheck)) {
-            //add one index of bit with error
+            //add index(column index) of bit with error
             rows.push_back(i);
             return rows;
         }
@@ -75,7 +75,7 @@ std::vector<int> Matrix::findIdenticalRows(std::vector<int> vectorToCheck) {
         for (int j = i+1; j < colCount; j++) {
             //Finding TWO fault in bits
             if(isColAsVector(i, removeColFromVector(vectorToCheck,j))) {
-                //add two index of bits with error
+                //add two index(column index) of bits with error
                 rows.push_back(i);
                 rows.push_back(j);
 
@@ -91,6 +91,9 @@ std::vector<int> Matrix::findIdenticalRows(std::vector<int> vectorToCheck) {
 
 bool Matrix::isColAsVector(int colIndex, std::vector<int> vector) {
     //find reversal vector in matrix
+    //H E compared with H
+    //If the error occurs for more
+    //than one item, the product H E will take the form of the sum of the corresponding columns of the matrix H.
     for (int i = 0; i < rowsCount; i++) {
         if(matrix[i][colIndex] != vector.at(i)) {
             //error not found

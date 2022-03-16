@@ -9,8 +9,11 @@
 #include "../include/Matrix.h"
 
 std::vector<int> DecodeWord::repairWord(std::vector<int> wordInByteForm) {
-    //length of the coded word 18
+    //length of the coded word 18(8 bits message 10 control bits)
     auto matrix = std::make_shared<Matrix>(8,wordInByteForm.size()-8);
+    //we multiply the wordInByteForm by matrix, zeros mean correct, one mistake
+    //the received word may be incorrect its mean it can be constructed from T(original bit) + E(mistakes) = R(received message)
+    //H R = H E
     auto matrixProduct = matrix->multiplyByVector(wordInByteForm);
 
     std::vector<int> rows;
@@ -23,6 +26,7 @@ std::vector<int> DecodeWord::repairWord(std::vector<int> wordInByteForm) {
         return wordInByteForm;
     }
     for (int iterator : rows) {
+        //row contains index of property column with mistake
         //repair wordInByteForm(rows.size() == 1 one error, == 2 two errors)
         //repair of found indexes corresponding to the opposite signs, ie as they should be
         if(wordInByteForm[iterator] == 0) {
