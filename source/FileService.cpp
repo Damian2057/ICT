@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <sstream>
+#include <iostream>
 #include "../include/FileService.h"
 #include "../include/FileFactory.h"
 #include "../include/CodeWord.h"
@@ -26,14 +27,17 @@ void FileService::codeFile() {
 void FileService::deCodeFile() {
     auto file = std::make_shared<FileFactory>();
     file->readFileToText("../files/decodedInput.txt");
-    std::string temp = file->getText();
+    //temp has all code "arrays"
+    std::string codedArray = file->getText();
 
-    std::stringstream word;
+    std::stringstream contents;
     int index = 0;
-
-    while (index < temp.size()) {
-        word << DecodeWord::decode(file->get15symbols(index,temp));
+    //read file line by line
+    while (index < codedArray.size()) {
+        contents << DecodeWord::decode(file->getLineFromFile(index, codedArray));
+        //index +20 because endl in codedArray after 18 sign
+        index +=20;
     }
 
-    file->saveFile(word.str(),"../files/decodedOutput.txt");
+    file->saveFile(contents.str(),"../files/decodedOutput.txt");
 }

@@ -17,7 +17,7 @@ public:
     std::string getText();
     void readFileToText(const std::string& input);
     void saveFile(const std::string& textToSave, const std::string& output);
-    std::string get15symbols(int &index, std::string &text);
+    std::string getLineFromFile(int &index, std::string &text);
 
 
 };

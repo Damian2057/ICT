@@ -12,14 +12,13 @@ std::string FileFactory::getText() {
     return text;
 }
 
-std::string FileFactory::get15symbols(int &index, std::string &text) {
-    std::stringstream symbol;
+std::string FileFactory::getLineFromFile(int &index, std::string &codedArray) {
+    std::stringstream line;
     //
     for (int i = 0; i < 18; ++i) {
-        symbol << text[i+index];
+        line << codedArray[i+index];
     }
-    index +=20;
-    return symbol.str();
+    return line.str();
 
 }
 
