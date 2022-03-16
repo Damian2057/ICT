@@ -13,5 +13,7 @@ add_executable(Tele_com main.cpp
         source/Matrix.cpp
         include/DecodeWord.h
         source/DecodeWord.cpp
+        include/FileService.h
+        source/FileService.cpp
         )
 

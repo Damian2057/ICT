@@ -14,6 +14,7 @@ std::string FileFactory::getText() {
 
 std::string FileFactory::get15symbols(int &index, std::string &text) {
     std::stringstream symbol;
+    //
     for (int i = 0; i < 18; ++i) {
         symbol << text[i+index];
     }

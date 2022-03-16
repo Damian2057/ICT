@@ -6,6 +6,7 @@
 #include <string>
 #include "include/CodeWord.h"
 #include "include/DecodeWord.h"
+#include "include/FileService.h"
 
 void printl(char text) {
     std::cout<<text<<std::endl;
@@ -19,6 +20,12 @@ int main() {
     //std::cout<<Code->code('a',10);
     printl(Decode->decode("011000010110001011"));
    // std::cout<<Decode->decode("011000010110001011");
+
+   auto kontroler = std::make_shared<FileService>();
+   kontroler->codeFile();
+   kontroler->deCodeFile();
+
+
     system("pause");
     return 0;
 }
