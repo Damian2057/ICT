@@ -57,6 +57,7 @@ std::vector<int> Matrix::multiplyByVector(std::vector<int> vector) {
         //-> result of column %2 causes 1 or 0
         result.at(i) %= 2;
     }
+    //if H T has the same 0 message is correct
     return result;
 }
 
@@ -93,7 +94,7 @@ bool Matrix::isColAsVector(int colIndex, std::vector<int> vector) {
     //find reversal vector in matrix
     //H E compared with H
     //If the error occurs for more
-    //than one item, the product H E will take the form of the sum of the corresponding columns of the matrix H.
+    //than one item, the product H*E will take the form of the sum of the corresponding columns of the matrix H.
     for (int i = 0; i < rowsCount; i++) {
         if(matrix[i][colIndex] != vector.at(i)) {
             //error not found

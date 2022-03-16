@@ -35,7 +35,7 @@ void FileService::deCodeFile() {
     //read file line by line
     while (index < codedArray.size()) {
         contents << DecodeWord::decode(file->getLineFromFile(index, codedArray));
-        //index +20 because endl in codedArray after 18 sign
+        //index +20 because enter in codedArray after 18 sign
         index +=20;
     }
 
