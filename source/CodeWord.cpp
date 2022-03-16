@@ -17,9 +17,11 @@ std::string CodeWord::code(char sign, int countOfControlBites) {
     wordInByteForm = addZeros(wordInByteForm,countOfControlBites);
     //matrix call
     auto matrix = std::make_shared<Matrix>(8, countOfControlBites);
+
     //create controlBits(the computation of the check bits acts as a checksum)
+    // H*T,parity check
     auto controlBits = matrix->multiplyByVector(wordInByteForm);
-    //add ControlBits to word(create full form of coded word = bits+controlBits 8 + 10)
+    //add ControlBits to word(create full form of coded word = bits+controlBits (8 + 10)
     wordInByteForm = createControlBits(wordInByteForm, controlBits, countOfControlBites);
     //Parse integer vector to String
     return vectorToString(wordInByteForm);

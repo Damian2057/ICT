@@ -9,18 +9,19 @@
 #include "../include/Matrix.h"
 
 std::vector<int> DecodeWord::repairWord(std::vector<int> wordInByteForm) {
+    //the received word may be incorrect
+    //T(original bit) + E(mistakes) = R(received message)
     //length of the coded word 18(8 bits message 10 control bits)
-    auto matrix = std::make_shared<Matrix>(8,wordInByteForm.size()-8);
-    //we multiply the wordInByteForm by matrix, zeros mean correct, one mistake
-    //the received word may be incorrect its mean it can be constructed from T(original bit) + E(mistakes) = R(received message)
-    //H R = H E
-    auto matrixProduct = matrix->multiplyByVector(wordInByteForm);
 
+    auto matrix = std::make_shared<Matrix>(8,wordInByteForm.size()-8);
+    //we multiply the wordInByteForm by matrix, 0 mean correct, 1 mistake
+    auto matrixProduct = matrix->multiplyByVector(wordInByteForm);
+    //H R = H E
     std::vector<int> rows;
 
     try {
         //if rows.size() != that is, we found errors in the transmission
-        rows = matrix ->findIdenticalRows(matrixProduct);
+        rows = matrix->searchForErrors(matrixProduct);
     } catch (std::logic_error& e) {
         //0 or more than 2 errors
         return wordInByteForm;

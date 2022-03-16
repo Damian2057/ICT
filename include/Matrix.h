@@ -42,9 +42,9 @@ public:
 
     void toString();
     std::vector<int> multiplyByVector(std::vector<int> vector);
-    std::vector<int> findIdenticalRows(std::vector<int> vectorToCheck);
-    bool isColAsVector(int colIndex, std::vector<int> vector);
-    std::vector<int> removeColFromVector(std::vector<int> vector, int index);
+    std::vector<int> searchForErrors(std::vector<int> vectorToCheck);
+    bool isColumnAsVector(int colIndex, std::vector<int> vector);
+    std::vector<int> substractColFromVector(std::vector<int> vector, int index);
 };
 
 

@@ -61,12 +61,12 @@ std::vector<int> Matrix::multiplyByVector(std::vector<int> vector) {
     return result;
 }
 
-std::vector<int> Matrix::findIdenticalRows(std::vector<int> vectorToCheck) {
+std::vector<int> Matrix::searchForErrors(std::vector<int> vectorToCheck) {
     //vector H E
     std::vector<int> rows;
     for (int i = 0; i < colCount; i++) {
         //Finding ONE fault in bits
-        if(isColAsVector(i,vectorToCheck)) {
+        if(isColumnAsVector(i, vectorToCheck)) {
             //add index(column index) of bit with error
             rows.push_back(i);
             return rows;
@@ -75,7 +75,8 @@ std::vector<int> Matrix::findIdenticalRows(std::vector<int> vectorToCheck) {
     for (int i = 0; i < colCount - 1; i++) {
         for (int j = i+1; j < colCount; j++) {
             //Finding TWO fault in bits
-            if(isColAsVector(i, removeColFromVector(vectorToCheck,j))) {
+            //due to bit operation carries out mod 2
+            if(isColumnAsVector(i, substractColFromVector(vectorToCheck, j))) {
                 //add two index(column index) of bits with error
                 rows.push_back(i);
                 rows.push_back(j);
@@ -84,14 +85,15 @@ std::vector<int> Matrix::findIdenticalRows(std::vector<int> vectorToCheck) {
             }
         }
     }
+
     //The given exception is thrown in two cases
     //the word is faultless
     //there are more than 2 bugs
     throw std::logic_error("there is no identical line to the vector");
 }
 
-bool Matrix::isColAsVector(int colIndex, std::vector<int> vector) {
-    //find reversal vector in matrix
+bool Matrix::isColumnAsVector(int colIndex, std::vector<int> vector) {
+    //find vector in matrix
     //H E compared with H
     //If the error occurs for more
     //than one item, the product H*E will take the form of the sum of the corresponding columns of the matrix H.
@@ -105,7 +107,7 @@ bool Matrix::isColAsVector(int colIndex, std::vector<int> vector) {
     return true;
 }
 
-std::vector<int> Matrix::removeColFromVector(std::vector<int> vector, int index) {
+std::vector<int> Matrix::substractColFromVector(std::vector<int> vector, int index) {
     //remove the value in columns from the vector //v.get(0)-c.get(0)...
     std::vector<int> difference;
     difference.reserve(vector.size());
