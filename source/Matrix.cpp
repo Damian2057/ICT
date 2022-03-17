@@ -63,6 +63,7 @@ std::vector<int> Matrix::multiplyByVector(std::vector<int> vector) {
 
 std::vector<int> Matrix::searchForErrors(std::vector<int> vectorToCheck) {
     //vector H E
+
     std::vector<int> rows;
     for (int i = 0; i < colCount; i++) {
         //Finding ONE fault in bits
@@ -72,10 +73,13 @@ std::vector<int> Matrix::searchForErrors(std::vector<int> vectorToCheck) {
             return rows;
         }
     }
+
     for (int i = 0; i < colCount - 1; i++) {
         for (int j = i+1; j < colCount; j++) {
             //The H * E result is the sum of the columns with errors
             //which means that we are looking for a pair of which is the sum
+            //If the error occurs
+            //two times, the product H*E will take the form of the sum of the right columns of the matrix H.
             if(isColumnAsVector(i, substractColFromVector(vectorToCheck, j))) {
                 //add two index(column index) of bits with error
                 rows.push_back(i);
@@ -95,8 +99,6 @@ std::vector<int> Matrix::searchForErrors(std::vector<int> vectorToCheck) {
 bool Matrix::isColumnAsVector(int colIndex, std::vector<int> vector) {
     //find vector in matrix
     //H*E compared with H
-    //If the error occurs for more
-    //than one item, the product H*E will take the form of the sum of the right columns of the matrix H.
     for (int i = 0; i < rowsCount; i++) {
         if(matrix[i][colIndex] != vector.at(i)) {
             //error not found
@@ -116,5 +118,6 @@ std::vector<int> Matrix::substractColFromVector(std::vector<int> vector, int ind
         //we create something like "unfolding"
         difference.push_back(abs(vector.at(i) - geValue(i,index)));
     }
+
     return difference;
 }

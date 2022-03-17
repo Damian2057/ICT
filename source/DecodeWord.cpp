@@ -17,6 +17,7 @@ std::vector<int> DecodeWord::repairWord(std::vector<int> wordInByteForm) {
     //we multiply the wordInByteForm by matrix, 0 mean correct, 1 mistake
     auto matrixProduct = matrix->multiplyByVector(wordInByteForm);
     //H R = H E
+
     std::vector<int> rows;
 
     try {
@@ -26,6 +27,7 @@ std::vector<int> DecodeWord::repairWord(std::vector<int> wordInByteForm) {
         //0 or more than 2 errors
         return wordInByteForm;
     }
+
     for (int iterator : rows) {
         //row contains index of property column with mistake
         //repair wordInByteForm(rows.size() == 1 one error, == 2 two errors)
@@ -40,17 +42,19 @@ std::vector<int> DecodeWord::repairWord(std::vector<int> wordInByteForm) {
 }
 
 
-char DecodeWord::decodeWord(std::vector<int> wordinByteForm) {
+char DecodeWord::decodeSign(std::vector<int> wordinByteForm) {
+
     //review if our word is correct, possible error correction on two bits
     wordinByteForm = repairWord(wordinByteForm);
     int number = 0;
     int exponent = 0;
-    for (int i = 8-1; i >=0 ; i--) {
+    for (int i = 8-1; i >= 0; i--) {
         //read values from binary to decimal notation
         number += int(pow(2,exponent)) * wordinByteForm.at(i);
         exponent++;
     }
     //parse int ASCII to substitute in char
+
     return char(number);
 }
 
@@ -61,5 +65,6 @@ char DecodeWord::decode(std::string wordInByteForm) {
     for(char sign : wordInByteForm) {
         temp.push_back(sign - '0');
     }
-    return decodeWord(temp);
+
+    return decodeSign(temp);
 }

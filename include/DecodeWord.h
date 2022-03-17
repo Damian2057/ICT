@@ -12,7 +12,7 @@ class DecodeWord {
 
 private:
     static std::vector<int> repairWord(std::vector<int> wordInByteForm);
-    static char decodeWord(std::vector<int> wordinByteForm);
+    static char decodeSign(std::vector<int> wordinByteForm);
 
 public:
     static char decode(std::string wordInByteForm);

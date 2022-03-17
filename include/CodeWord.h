@@ -13,10 +13,10 @@ class CodeWord {
 
 private:
     static std::vector<int> signToBitsVector(char sign);
-    static std::vector<int> addZeros(std::vector<int> word, int count);
-    static std::vector<int> createControlBits(std::vector<int> word, std::vector<int> bits, int count);
+    static std::vector<int> alignLengthByZeros(std::vector<int> word, int count);
+    static std::vector<int> connectBitsAndControlBits(std::vector<int> word, std::vector<int> bits, int count);
 
-    static std::string vectorToString(const std::vector<int>& word);
+    static std::string bitVectorToString(const std::vector<int>& word);
     static std::vector<int> stringToVector(const std::string& text);
 
 public:
