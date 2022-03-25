@@ -11,7 +11,7 @@
 std::vector<int> DecodeWord::repairWord(std::vector<int> wordInByteForm) {
     //the received word may be incorrect
     //T(original bit) + E(mistakes) = R(received message)
-    //length of the coded word 18(8 bits message 10 control bits)
+    //length of the coded word 16(8 bits message 8 control bits)
 
     auto matrix = std::make_shared<Matrix>(8,wordInByteForm.size()-8);
     //we multiply the wordInByteForm by matrix, 0 mean correct, 1 mistake

@@ -4,6 +4,7 @@
 #include <bitset>
 #include <sstream>
 #include <string>
+#include <fstream>
 #include "include/CodeWord.h"
 #include "include/DecodeWord.h"
 #include "include/FileService.h"
@@ -26,6 +27,16 @@ void print(std::string text) {
     std::cout<<text;
 }
 
+//void saveFileBit(const std::string &textToSave, const std::string &output) {
+//    std::ofstream file(output, std::ios_base::out | std::ios_base::binary);
+//    //file << std::noskipws;
+//    std::ofstream f;
+//    file.write(reinterpret_cast<char*>(&ull), sizeof(ull));
+//    file.close();
+//    file << textToSave;
+//    file.close();
+//}
+
 //Test Zone
 void singleCorrection();
 void doubleCorrection();
@@ -34,6 +45,7 @@ void repairdoubleeByte(char sign, int& correct, int& mistakes);
 int changeSingleBit(char bit);
 
 int main() {
+    //saveFileBit("101010101010101010", "../files/TESTOutput.bin");
 
     char choice = '1';
     std::stringstream stringstream;
@@ -54,13 +66,13 @@ int main() {
                 char sign = 'a';
                 printl("Enter a character:");
                 std::cin>>sign;
-                printl(Code->code(sign,10));
+                printl(Code->code(sign,8));
                 break;
             }
             case '2': {
                 auto Decode = std::make_shared<DecodeWord>();
                 std::string biteArray;
-                printl("Enter a sequence of 18 bits:");
+                printl("Enter a sequence of 16 bits:");
                 std::cin>>biteArray;
                 printl(Decode->decode(biteArray));
                 break;
@@ -132,7 +144,7 @@ void doubleCorrection() {
 void repairsingleByte(char sign, int& correct, int& mistakes) {
     auto Code = std::make_shared<CodeWord>();
     auto Decode = std::make_shared<DecodeWord>();
-    auto temp = Code->code(sign,10);
+    auto temp = Code->code(sign,8);
     temp[2] = changeSingleBit(temp[2]);
 
     if(Decode->decode(temp) == sign) {
@@ -145,7 +157,7 @@ void repairsingleByte(char sign, int& correct, int& mistakes) {
 void repairdoubleeByte(char sign, int& correct, int& mistakes) {
     auto Code = std::make_shared<CodeWord>();
     auto Decode = std::make_shared<DecodeWord>();
-    auto temp = Code->code(sign,10);
+    auto temp = Code->code(sign,8);
     temp[4] = changeSingleBit(temp[4]);
     temp[4] = changeSingleBit(temp[4]);
 

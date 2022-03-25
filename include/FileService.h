@@ -9,6 +9,7 @@
 class FileService {
 
 public:
+    char controlToChar(std::string sign);
     void codeFile();
     void deCodeFile();
 };

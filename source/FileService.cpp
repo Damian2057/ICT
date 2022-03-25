@@ -5,10 +5,26 @@
 #include <memory>
 #include <sstream>
 #include <iostream>
+#include <cmath>
 #include "../include/FileService.h"
 #include "../include/FileFactory.h"
 #include "../include/CodeWord.h"
 #include "../include/DecodeWord.h"
+
+
+char FileService::controlToChar(std::string sign) {
+    //review if our word is correct, possible error correction on two bits
+    int number = 0;
+    int exponent = 0;
+    for (int i = 8; i < 16; i++) {
+        //read values from binary to decimal notation
+        number += int(pow(2,exponent)) * sign.at(i);
+        exponent++;
+    }
+    //parse int ASCII to substitute in char
+
+    return char(number);
+}
 
 
 void FileService::codeFile() {
@@ -17,11 +33,16 @@ void FileService::codeFile() {
     std::string temp = file->getText();
 
     std::stringstream code;
+    std::stringstream tofileCode;
     for (char sign : temp) {
-        code << CodeWord::code(sign,10)<<"\n";
+
+        std::string codedsign = CodeWord::code(sign,8);
+        tofileCode << sign << controlToChar(codedsign);
     }
 
-    file->saveFile(code.str(),"../files/codeOutput.txt");
+    std::cout<<tofileCode.str();
+
+    file->saveFile(tofileCode.str(),"../files/codeOutput");
 }
 
 void FileService::deCodeFile() {
@@ -38,7 +59,7 @@ void FileService::deCodeFile() {
         contents << DecodeWord::decode(file->getLineFromFile(index, codedArray));
 
         //index +20 because enter in codedArray after 18 sign
-        index +=20;
+        index +=18;
     }
 
     file->saveFile(contents.str(),"../files/decodedOutput.txt");

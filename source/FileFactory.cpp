@@ -14,7 +14,7 @@ std::string FileFactory::getText() {
 
 std::string FileFactory::getLineFromFile(int &index, std::string &codedArray) {
     std::stringstream line;
-    for (int i = 0; i < 18; i++) {
+    for (int i = 0; i < 16; i++) {
         line << codedArray[i+index];
     }
 
