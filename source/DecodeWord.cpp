@@ -46,13 +46,17 @@ char DecodeWord::decodeSign(std::vector<int> wordinByteForm) {
 
     //review if our word is correct, possible error correction on two bits
     wordinByteForm = repairWord(wordinByteForm);
+
     int number = 0;
     int exponent = 0;
     for (int i = 8-1; i >= 0; i--) {
+        //std::cout<<wordinByteForm.at(i);
         //read values from binary to decimal notation
         number += int(pow(2,exponent)) * wordinByteForm.at(i);
         exponent++;
     }
+   // std::cout<<number<<std::endl;
+
     //parse int ASCII to substitute in char
 
     return char(number);

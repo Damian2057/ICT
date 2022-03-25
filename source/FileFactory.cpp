@@ -31,6 +31,6 @@ void FileFactory::saveFile(const std::string &textToSave, const std::string &out
 
 void FileFactory::readFileToText(const std::string &input) {
     std::ifstream file(input, std::ios::binary);
-    std::getline(file, text, '\0');
+    std::getline(file, text);
     file.close();
 }

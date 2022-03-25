@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 #include "../include/FileService.h"
 #include "../include/FileFactory.h"
 #include "../include/CodeWord.h"
@@ -40,26 +41,62 @@ void FileService::codeFile() {
         tofileCode << sign << controlToChar(codedsign);
     }
 
-    std::cout<<tofileCode.str();
-
     file->saveFile(tofileCode.str(),"../files/codeOutput");
 }
 
+
+std::string FileService::convertToArray(std::string twoSigns) {
+    std::vector<int> code;
+    for (auto s:twoSigns) {
+        std::vector<int> codedONEsign;
+        //parse char to int value in (ASCII)
+        auto num = abs(int(s));
+        //Passage by bits of num
+        while (num) {
+            if(num & 1) {  // if bit == 1 add 1 in our vector
+                codedONEsign.push_back(1);
+            } else { // find 0
+                codedONEsign.push_back(0);
+            }
+            num >>= 1; //go to the next bit
+        }
+        while (codedONEsign.size() < 8) {
+            codedONEsign.insert(codedONEsign.end(),0);
+            //code.push_back(0);
+        }
+        std::reverse(codedONEsign.begin(), codedONEsign.end());
+        for (int i = 0; i < codedONEsign.size(); ++i) {
+            code.push_back(codedONEsign.at(i));
+        }
+    }
+    return bitsToString(code);
+}
+
+
+std::string FileService::bitsToString(const std::vector<int> &word) {
+    //parse vector to String
+    std::stringstream text;
+    for(int bit: word) {
+        text << bit;
+    }
+    return text.str();
+}
+
+
+
 void FileService::deCodeFile() {
     auto file = std::make_shared<FileFactory>();
-    file->readFileToText("../files/decodedInput.txt");
+    file->readFileToText("../files/codeOutput");
     //temp has all code "arrays"
 
-    std::string codedArray = file->getText();
-
     std::stringstream contents;
-    int index = 0;
-    //read file line by line
-    while (index < codedArray.size()) {
-        contents << DecodeWord::decode(file->getLineFromFile(index, codedArray));
 
-        //index +20 because enter in codedArray after 18 sign
-        index +=18;
+    std::string codedArray = file->getText();
+    for (int i = 0; i <codedArray.size(); i += 2) {
+        std::string chain;
+        chain.push_back(codedArray.at(i));
+        chain.push_back(codedArray.at(i+1));
+        contents << DecodeWord::decode(convertToArray(chain));
     }
 
     file->saveFile(contents.str(),"../files/decodedOutput.txt");

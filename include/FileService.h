@@ -10,6 +10,8 @@ class FileService {
 
 public:
     char controlToChar(std::string sign);
+    std::string convertToArray(std::string twoSigns);
+    std::string bitsToString(const std::vector<int> &word);
     void codeFile();
     void deCodeFile();
 };
